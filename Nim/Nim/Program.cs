@@ -9,8 +9,9 @@ namespace Nim
     class Program
     {
         static void Main(string[] args)
-        {
-
+        {  
+            AppEngine engine = new AppEngine();
+            engine.StartEngine();
         }
     }
 }

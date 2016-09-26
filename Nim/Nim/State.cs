@@ -8,10 +8,23 @@ namespace Nim
 {
     class State
     {
-        public int RowOneValues { get; set; }
-        public int RowTwoValues { get; set; }
-        public int RowThreeValues { get; set; }
+        public State(int[] board)
+        {
+            RowOneValue = board[0];
+            RowTwoValue = board[1];
+            RowThreeValue = board[2];
+        }
 
-        public int Average { get; set; }
+        public double CalculateAverage()
+        {
+            return Average;
+        }
+
+        public int RowOneValue { get; set; }
+        public int RowTwoValue { get; set; }
+        public int RowThreeValue { get; set; }
+
+        public double Average { get; set; } = 0.0;
+
     }
 }
