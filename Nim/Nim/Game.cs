@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Nim
 {
-    class NimController
+    class Game
     {
+        public Game()
+        {
+
+        }
+
+        public void StartGame()
+        {
+
+        }
+
     }
 }
