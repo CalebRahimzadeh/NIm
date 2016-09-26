@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nim
 {
-    class Program
+    class NimController
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }
