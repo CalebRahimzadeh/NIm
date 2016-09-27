@@ -8,6 +8,6 @@ namespace Nim
 {
     interface IPlayer
     {
-        bool IsTurn();
+        bool isTurn { get; set; }
     }
 }

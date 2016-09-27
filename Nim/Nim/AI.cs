@@ -9,14 +9,11 @@ namespace Nim
     class AI : IPlayer
     {
         public static Dictionary<int[], State> StateTree { get; set; } =  new Dictionary<int[], State>();
-        public AI()
+        public AI(bool isTurn)
         {
-
+            this.isTurn = isTurn;
         }
 
-        public bool IsTurn()
-        {
-            throw new NotImplementedException();
-        }
+        public bool isTurn { get; set; }
     }
 }
