@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace Nim
 {
-    class AI
+    class AI : IPlayer
     {
-        
         public static Dictionary<int[], State> StateTree { get; set; } =  new Dictionary<int[], State>();
-        
+        public AI()
+        {
+
+        }
+
+        public bool IsTurn()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

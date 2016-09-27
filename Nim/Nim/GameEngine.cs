@@ -11,6 +11,7 @@ namespace Nim
         private const int MAX_ROWS = 3;
         private int[] _board;
         private bool isTurn;
+        private 
         //create board
         public GameEngine()
         {
@@ -38,6 +39,7 @@ namespace Nim
 
         public void PlayComputerVsComputer()
         {
+            AI 
             TakeTurn();
         }
 
@@ -53,16 +55,15 @@ namespace Nim
         public bool StartingTurn()
         {
             Random rand = new Random();
-            bool boolReturn;
+            bool boolReturn = false;
             if(rand.Next(2) == 0)
             {
-                boolReturn = false;
+                return boolReturn;
             }
             else
             {
-                boolReturn = true;
+               return !boolReturn;
             }
-            return boolReturn;
         }
 
         public void TakeTurn()

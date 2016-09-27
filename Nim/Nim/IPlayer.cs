@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Nim
 {
-    class Player : IPlayer
+    interface IPlayer
     {
-        public bool IsTurn()
-        {
-            throw new NotImplementedException();
-        }
+        bool IsTurn();
     }
 }

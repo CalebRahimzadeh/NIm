@@ -46,6 +46,7 @@
     <Compile Include="AI.cs" />
     <Compile Include="AppEngine.cs" />
     <Compile Include="GameEngine.cs" />
+    <Compile Include="IPlayer.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
