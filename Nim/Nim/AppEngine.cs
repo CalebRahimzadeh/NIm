@@ -19,18 +19,23 @@ namespace Nim
             {
                 choice = UI.PromptMenu();
             }
-            GameEngine game = new GameEngine();
+            MakeChoice(choice);
+        }
 
+        public void MakeChoice(int choice)
+        {
+            GameEngine game = new GameEngine();
+            // Player vs Player
             if (choice == 1)
             {
-
                 game.Run();
-                //Pvp
             }
+            // Computer vs Player
             else if (choice == 2)
             {
                 game.PlayComputerVsPlayer();
             }
+            // Computer vs Computer
             else if (choice == 3)
             {
                 int numOfGames = 0;
@@ -44,8 +49,6 @@ namespace Nim
             {
                 Console.WriteLine("Goodbye");
             }
-        
         }
-
     }
 }
