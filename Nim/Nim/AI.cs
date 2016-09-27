@@ -8,7 +8,7 @@ namespace Nim
 {
     class AI
     {
-        public static Dictionary<int[], State> StateTree { get; set; } = new Dictionary<int[], State>();
-
+        public static Dictionary<int[], State> StateTree { get; set; } =  new Dictionary<int[], State>();
+        
     }
 }

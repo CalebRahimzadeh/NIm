@@ -19,6 +19,7 @@ namespace Nim
 
         public void Run()
         {
+            
             //play game     
             State currentState = new State(_board);
         }

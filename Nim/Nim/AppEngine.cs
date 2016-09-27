@@ -13,10 +13,15 @@ namespace Nim
         public void StartEngine()
         {
             //menu prompt and loop
+
+            int choice = -1;
+            while (choice == -1)
+            {
+                choice = UI.PromptMenu();
+            }
             GameEngine game = new GameEngine();
             game.Run();
         }
-
 
     }
 }
