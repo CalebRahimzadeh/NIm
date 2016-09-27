@@ -54,7 +54,7 @@ namespace Nim
         {
             Random rand = new Random();
             bool boolReturn;
-            if(rand.Next(2) == 0)
+            if (rand.Next(2) == 0)
             {
                 boolReturn = false;
             }
@@ -69,11 +69,15 @@ namespace Nim
         {
             if (isTurn)
             {
-
+                RemovePieces(UI.PromptRow(), UI.PromptRemoval());
             }
-            else if (isTurn)
+            else if (!isTurn)
             {
-
+                RemovePieces(UI.PromptRow(), UI.PromptRemoval());
+            }
+            else
+            {
+                Console.WriteLine("ERROR: TakeTurn Bool");
             }
         }
     }
