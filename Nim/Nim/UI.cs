@@ -34,7 +34,5 @@ namespace Nim
                 return isValid;
             }
         }
-
-
     }
 }
