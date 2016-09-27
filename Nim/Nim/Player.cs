@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Nim
 {
-    class Player : IPlayer
+    class Player
     {
-        public bool IsTurn()
+        public Player(bool isTurn)
         {
-            throw new NotImplementedException();
+            this.isTurn = isTurn;
         }
+
+        public bool isTurn { get; set; }
+
     }
 }
