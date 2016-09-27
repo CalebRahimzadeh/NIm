@@ -10,9 +10,12 @@ namespace Nim
     {
         private const int MAX_ROWS = 3;
         private int[] _board;
+        private bool isTurn;
         //create board
         public GameEngine()
         {
+            //Random Turn
+            isTurn = StartingTurn();
             // Construct rows.
             _board = new int[MAX_ROWS] { 3, 5, 7 };
             if (!AI.StateTree.ContainsKey(_board))
@@ -24,24 +27,56 @@ namespace Nim
 
         public void Run()
         {
-
             //play game     
             State currentState = new State(_board);
         }
 
         public void PlayComputerVsPlayer()
         {
-
+            TakeTurn();
         }
 
         public void PlayComputerVsComputer()
         {
+            TakeTurn();
+        }
 
+        public void PlayerVsPlayer()
+        {
+            TakeTurn();
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
         {
 
         }
+        public bool StartingTurn()
+        {
+            Random rand = new Random();
+            bool boolReturn;
+            if(rand.Next(2) == 0)
+            {
+                boolReturn = false;
+            }
+            else
+            {
+                boolReturn = true;
+            }
+            return boolReturn;
+        }
+
+        public void TakeTurn()
+        {
+            if (isTurn)
+            {
+
+            }
+            else if (isTurn)
+            {
+
+            }
+        }
     }
+
 }
+
