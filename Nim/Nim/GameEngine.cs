@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Nim
     {
         private const int MAX_ROWS = 3;
         private int[] _board;
-        private bool isTurn; 
+        private bool isTurn;
         //create board
         public GameEngine()
         {
@@ -38,7 +39,6 @@ namespace Nim
 
         public void PlayComputerVsComputer()
         {
-            AI 
             TakeTurn();
         }
 
@@ -69,11 +69,11 @@ namespace Nim
         {
             if (isTurn)
             {
-
+                RemovePieces(UI.PromptRow(), UI.PromptRemoval());
             }
             else if (isTurn)
             {
-
+                RemovePieces(UI.PromptRow(), UI.PromptRemoval());
             }
         }
     }
