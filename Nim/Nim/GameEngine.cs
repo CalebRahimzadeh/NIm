@@ -10,8 +10,7 @@ namespace Nim
     {
         private const int MAX_ROWS = 3;
         private int[] _board;
-        private bool isTurn;
-        private 
+        private bool isTurn; 
         //create board
         public GameEngine()
         {
