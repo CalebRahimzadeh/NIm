@@ -47,6 +47,8 @@ namespace Nim
 
         public void PlayerVsPlayer()
         {
+            if(currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+            {
             SwitchTurn();
             RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
