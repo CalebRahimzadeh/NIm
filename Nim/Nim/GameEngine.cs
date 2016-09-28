@@ -13,8 +13,7 @@ namespace Nim
         private int[] _board;
         private bool isTurn;
         private bool contGame;
-        private State currentState; 
-        State currentState;
+        private State currentState;
         private UI ui = new UI();
         //create board
         public GameEngine()
@@ -46,7 +45,6 @@ namespace Nim
         public void PlayComputerVsPlayer()
         {
             //True means Player1, Player1 is always the human
-            TakeTurn();
             SwitchTurn();
             RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
             if (isTurn) { RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState)); }
@@ -63,7 +61,7 @@ namespace Nim
         {
             if(currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
             {
-                TakeTurn();
+                SwitchTurn();
                 RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
             }
         }
