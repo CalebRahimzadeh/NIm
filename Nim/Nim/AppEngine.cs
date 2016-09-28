@@ -38,7 +38,7 @@ namespace Nim
             // Computer vs Computer
             else if (choice == 3)
             {
-                int numOfGames = 0;
+                int numOfGames = UI.PromptGameNumberAI();
                 for (int i = 0; i < numOfGames; i++)
                 {
                     game = new GameEngine();
