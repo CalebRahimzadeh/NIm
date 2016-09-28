@@ -47,10 +47,11 @@ namespace Nim
 
         public void PlayerVsPlayer()
         {
-            if(currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+            if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
             {
-            SwitchTurn();
-            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                SwitchTurn();
+                RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+            }
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
