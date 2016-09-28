@@ -15,11 +15,6 @@ namespace Nim
             RowThreeValue = board[2];
         }
 
-        public double CalculateAverage()
-        {
-            return Average;
-        }
-
         public int RowOneValue { get; set; }
         public int RowTwoValue { get; set; }
         public int RowThreeValue { get; set; }

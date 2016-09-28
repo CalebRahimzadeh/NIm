@@ -12,7 +12,6 @@ namespace Nim
         private const int MAX_ROWS = 3;
         private int[] _board;
         private bool isTurn;
-        private bool contGame;
         private State currentState;
         private UI ui = new UI();
         //create board
@@ -22,6 +21,8 @@ namespace Nim
             isTurn = StartingTurn();
             // Construct rows.
             _board = new int[MAX_ROWS] { 3, 5, 7 };
+            currentState = new State(_board);
+            GameHistory.Add(currentState);
 
             if (!AI.StateTree.ContainsKey(_board))
             {
@@ -29,16 +30,16 @@ namespace Nim
                 AI.StateTree.Add(_board, defaultState);
             }
         }
-
-        private void Run()
+        public void printBoard()
         {
-            //play game    
-            currentState = new State(_board);
-        }
-
-        public void UpdateCurrentState()
-        {
-
+            for (int i = 0; i < _board.Length; i++)
+            {
+                for (int j = 0; j < _board[i]; j++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine("");
+            }
         }
 
         public void PlayComputerVsPlayer()
@@ -57,16 +58,28 @@ namespace Nim
 
         public void PlayerVsPlayer()
         {
-            if(currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+            bool gameGoing = true;
+            while(gameGoing)
             {
-                SwitchTurn();
-                RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                printBoard();
+                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                {
+                    SwitchTurn();
+                    RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                }
+                else
+                {
+                    gameGoing = false;
+                }
             }
+
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
         {
-            _board[targetRow] -= removeAmt;
+            _board[targetRow - 1] -= removeAmt;
+            currentState = new State(_board);
+            GameHistory.Add(currentState);
         }
 
         public bool StartingTurn()
@@ -95,9 +108,9 @@ namespace Nim
             }
             return isTurn;
         }
+        // Get rid of after you preform the calculation of averages
+        public List<State> GameHistory { get; set; } = new List<State>();
     }
-
-    public List<State> GameHistory { get; set; }
 
 }
 
