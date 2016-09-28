@@ -35,6 +35,7 @@ namespace Nim
             Console.WriteLine("");
             for (int i = 0; i < _board.Length; i++)
             {
+                Console.Write(i + 1);
                 for (int j = 0; j < _board[i]; j++)
                 {
                     Console.Write("*");
@@ -46,14 +47,63 @@ namespace Nim
 
         public void PlayComputerVsPlayer()
         {
-            SwitchTurn();
-            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+            bool gameGoing = true;
+            while (gameGoing)
+            {
+                printBoard();
+                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                {
+                    SwitchTurn();
+                    if(!isTurn)
+                    {
+                        RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                    } 
+                    else
+                    {
+                        Random r = new Random();
+                        int cpuRow = r.Next(2) + 1;
+                        if(cpuRow == 1 && currentState.RowOneValue > 0)
+                        {
+                            int cpuRemove = r.Next(currentState.RowOneValue) + 1;
+                            RemovePieces(cpuRow, cpuRemove);
+                        }
+                        else if (cpuRow == 2 && currentState.RowTwoValue > 0)
+                        {
+                            int cpuRemove = r.Next(currentState.RowTwoValue) + 1;
+                            RemovePieces(cpuRow, cpuRemove);
+                        }
+                        else if (cpuRow == 3 && currentState.RowThreeValue > 0)
+                        {
+                            int cpuRemove = r.Next(currentState.RowThreeValue) + 1;
+                            RemovePieces(cpuRow, cpuRemove);
+                        }
+                    }
+                }
+                else
+                {
+                    ui.gameOver(isTurn);
+                    gameGoing = false;
+                }
+            }
         }
 
         public void PlayComputerVsComputer()
         {
-            SwitchTurn();
-            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+            bool gameGoing = true;
+            while (gameGoing)
+            {
+                printBoard();
+                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                {
+                    SwitchTurn();
+                    RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                }
+                else
+                {
+                    ui.gameOver(isTurn);
+                    gameGoing = false;
+                }
+            }
         }
 
         public void PlayerVsPlayer()
@@ -73,7 +123,6 @@ namespace Nim
                     gameGoing = false;
                 }
             }
-
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
