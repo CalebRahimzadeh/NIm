@@ -43,7 +43,7 @@ namespace Nim
 
         public void PlayComputerVsPlayer()
         {
-            TakeTurn(currentState);
+            TakeTurn();
             RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
 
@@ -55,8 +55,11 @@ namespace Nim
 
         public void PlayerVsPlayer()
         {
-            TakeTurn();
-            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+            if(currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+            {
+                TakeTurn();
+                RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+            }
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
