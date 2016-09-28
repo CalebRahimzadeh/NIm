@@ -34,7 +34,6 @@ namespace Nim
         {
             //play game    
             currentState = new State(_board);
-
         }
 
         public void UpdateCurrentState()
@@ -46,7 +45,6 @@ namespace Nim
         {
             //True means Player1, Player1 is always the human
             SwitchTurn();
-            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
             if (isTurn) { RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState)); }
 
         }
