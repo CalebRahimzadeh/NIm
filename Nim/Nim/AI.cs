@@ -8,6 +8,7 @@ namespace Nim
 {
     class AI : IPlayer
     {
+        // history after every game
         public static Dictionary<int[], State> StateTree { get; set; } =  new Dictionary<int[], State>();
         public AI(bool isTurn)
         {

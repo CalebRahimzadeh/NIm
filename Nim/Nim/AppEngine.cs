@@ -28,7 +28,7 @@ namespace Nim
             // Player vs Player
             if (choice == 1)
             {
-                game.Run();
+                game.PlayerVsPlayer();
             }
             // Computer vs Player
             else if (choice == 2)
