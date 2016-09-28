@@ -53,5 +53,7 @@ namespace Nim
                 contGame = false;
             }
         }
+
+        public List<List<State>> Games { get; set; }
     }
 }
