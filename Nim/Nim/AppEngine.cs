@@ -50,5 +50,7 @@ namespace Nim
                 Console.WriteLine("Goodbye");
             }
         }
+
+        public List<List<State>> Games { get; set; }
     }
 }

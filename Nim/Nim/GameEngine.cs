@@ -12,8 +12,8 @@ namespace Nim
         private const int MAX_ROWS = 3;
         private int[] _board;
         private bool isTurn;
-        State currentState; 
-        UI ui = new UI();
+        private State currentState; 
+        private UI ui = new UI();
         //create board
         public GameEngine()
         {
@@ -36,21 +36,21 @@ namespace Nim
 
         }
 
-        public void UpdateCurrentState(State state)
+        public void UpdateCurrentState()
         {
 
         }
 
         public void PlayComputerVsPlayer()
         {
-            TakeTurn(state);
-            RemovePieces(ui.PromptRow(state), ui.PromptRemoval(state));
+            TakeTurn(currentState);
+            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
 
-        public void PlayComputerVsComputer(State state)
+        public void PlayComputerVsComputer()
         {
-            TakeTurn(state);
-            RemovePieces(ui.PromptRow(state), ui.PromptRemoval(state));
+            TakeTurn(currentState);
+            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
 
         public void PlayerVsPlayer(State state)
@@ -63,6 +63,7 @@ namespace Nim
         {
             _board[targetRow] -= removeAmt;
         }
+
         public bool StartingTurn()
         {
             Random rand = new Random();
@@ -77,7 +78,7 @@ namespace Nim
             }
         }
 
-        public bool TakeTurn(State state)
+        public bool TakeTurn()
         {
             if (isTurn)
             {
@@ -90,6 +91,8 @@ namespace Nim
             return isTurn;
         }
     }
+
+    public List<State> GameHistory { get; set; }
 
 }
 
