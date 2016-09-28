@@ -51,6 +51,5 @@ namespace Nim
             }
         }
 
-        public List<List<State>> Games { get; set; }
     }
 }
