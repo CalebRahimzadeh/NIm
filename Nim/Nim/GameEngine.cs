@@ -67,6 +67,7 @@ namespace Nim
                 }
                 else
                 {
+                    ui.gameOver(isTurn);
                     gameGoing = false;
                 }
             }
@@ -98,10 +99,12 @@ namespace Nim
         {
             if (isTurn)
             {
+                ui.playerTurn(isTurn);
                 isTurn = !isTurn;
             }
             else if (!isTurn)
             {
+                ui.playerTurn(isTurn);
                 isTurn = !isTurn;
             }
             return isTurn;

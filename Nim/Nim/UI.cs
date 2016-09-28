@@ -97,5 +97,28 @@ namespace Nim
             }
             return isValid;
         }
+
+        public void playerTurn(bool turn)
+        {
+            if (!turn)
+            {
+                Console.WriteLine("Player 1 turn");
+            }
+            else if (turn)
+            {
+                Console.WriteLine("Player 2 turn");
+            }
+        }
+
+        public void gameOver(bool turn)
+        {
+            if(!turn)
+            {
+                Console.WriteLine("Player 1 wins!");
+            } else if (turn)
+            {
+                Console.WriteLine("Player 2 wins!");
+            }
+        }
     }
 }
