@@ -31,12 +31,22 @@ namespace Nim
             }
         }
 
+        public void printBoard()
+        {
+            for (int i = 0; i < _board.Length; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine("");
+            }
+        }
+
         public void PlayComputerVsPlayer()
         {
             SwitchTurn();
             RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
-
-            
         }
 
         public void PlayComputerVsComputer()
@@ -47,10 +57,12 @@ namespace Nim
 
         public void PlayerVsPlayer()
         {
-            if(currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                printBoard();
+            if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
             {
-            SwitchTurn();
-            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                SwitchTurn();
+                RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+            }
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
