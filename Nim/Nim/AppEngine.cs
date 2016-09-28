@@ -8,18 +8,20 @@ namespace Nim
 {
     class AppEngine
     {
-
+        private bool contGame = true;
         // Create game.
         public void StartEngine()
         {
             //menu prompt and loop
-
-            int choice = -1;
-            while (choice == -1)
+            while (contGame)
             {
-                choice = UI.PromptMenu();
+                int choice = -1;
+                while (choice == -1)
+                {
+                    choice = UI.PromptMenu();
+                }
+                MakeChoice(choice);
             }
-            MakeChoice(choice);
         }
 
         public void MakeChoice(int choice)
@@ -48,6 +50,7 @@ namespace Nim
             else if (choice == 4)
             {
                 Console.WriteLine("Goodbye");
+                contGame = false;
             }
         }
     }

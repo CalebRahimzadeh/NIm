@@ -12,7 +12,8 @@ namespace Nim
         private const int MAX_ROWS = 3;
         private int[] _board;
         private bool isTurn;
-        State currentState; 
+        private bool contGame;
+        State currentState;
         UI ui = new UI();
         //create board
         public GameEngine()
@@ -21,7 +22,7 @@ namespace Nim
             isTurn = StartingTurn();
             // Construct rows.
             _board = new int[MAX_ROWS] { 3, 5, 7 };
-            
+
             if (!AI.StateTree.ContainsKey(_board))
             {
                 State defaultState = new State(_board) { Average = 0 };
@@ -43,19 +44,21 @@ namespace Nim
 
         public void PlayComputerVsPlayer()
         {
-            TakeTurn();
-            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+            //True means Player1, Player1 is always the human
+            SwitchTurn();
+            if (isTurn) { RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState)); }
+
         }
 
         public void PlayComputerVsComputer()
         {
-            TakeTurn();
+            SwitchTurn();
             RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
 
         public void PlayerVsPlayer()
         {
-            TakeTurn();
+            SwitchTurn();
             RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
 
@@ -67,17 +70,17 @@ namespace Nim
         {
             Random rand = new Random();
             bool boolReturn = false;
-            if(rand.Next(2) == 0)
+            if (rand.Next(2) == 0)
             {
                 return boolReturn;
             }
             else
             {
-               return !boolReturn;
+                return !boolReturn;
             }
         }
 
-        public bool TakeTurn()
+        public bool SwitchTurn()
         {
             if (isTurn)
             {
