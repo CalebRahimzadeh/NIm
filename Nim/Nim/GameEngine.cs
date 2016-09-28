@@ -75,7 +75,7 @@ namespace Nim
 
         public void RemovePieces(int targetRow, int removeAmt)
         {
-            _board[targetRow] -= removeAmt;
+            _board[targetRow - 1] -= removeAmt;
             currentState = new State(_board);
             GameHistory.Add(currentState);
         }
