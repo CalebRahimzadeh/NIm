@@ -33,21 +33,14 @@ namespace Nim
 
         public void printBoard()
         {
-            for (int i = 0; i < _board[0]; i++)
+            for (int i = 0; i < _board.Length; i++)
             {
+                for (int j = 0; j < _board[i]; j++)
+                {
                     Console.Write("*");
+                }
+                Console.WriteLine("");
             }
-            Console.WriteLine("");
-            for (int i = 0; i < _board[1]; i++)
-            {
-                Console.Write("*");
-            }
-            Console.WriteLine("");
-            for (int i = 0; i < _board[2]; i++)
-            {
-                Console.Write("*");
-            }
-            Console.WriteLine("");
         }
 
         public void PlayComputerVsPlayer()
