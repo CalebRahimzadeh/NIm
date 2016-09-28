@@ -32,6 +32,7 @@ namespace Nim
         }
         public void printBoard()
         {
+            Console.WriteLine("");
             for (int i = 0; i < _board.Length; i++)
             {
                 for (int j = 0; j < _board[i]; j++)
@@ -40,6 +41,7 @@ namespace Nim
                 }
                 Console.WriteLine("");
             }
+            Console.WriteLine("");
         }
 
         public void PlayComputerVsPlayer()

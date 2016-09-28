@@ -11,7 +11,7 @@ namespace Nim
         public int row;
         public static int PromptMenu()
         {
-            Console.WriteLine("1: PvP\n2: PvC\n3: CVC\n4: Exit");
+            Console.WriteLine("1: PvP\n2: PvC\n3: CVC\n4: Exit\n");
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
@@ -24,7 +24,7 @@ namespace Nim
         }
         public int PromptRow(State state)
         {
-            Console.WriteLine("Which row are you modifying? (1, 2, 3)");
+            Console.WriteLine("Which row are you modifying? (1, 2, 3)\n");
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
@@ -39,7 +39,7 @@ namespace Nim
 
         public int PromptRemoval(State state)
         {
-            Console.WriteLine("How many pieces are you removing?");
+            Console.WriteLine("How many pieces are you removing?\n");
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
@@ -53,7 +53,7 @@ namespace Nim
 
         public static int PromptGameNumberAI()
         {
-            Console.WriteLine("How many games would you like to be played?");
+            Console.WriteLine("How many games would you like to be played?\n");
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
@@ -102,11 +102,11 @@ namespace Nim
         {
             if (!turn)
             {
-                Console.WriteLine("Player 1 turn");
+                Console.WriteLine("Player 1 turn\n");
             }
             else if (turn)
             {
-                Console.WriteLine("Player 2 turn");
+                Console.WriteLine("Player 2 turn\n");
             }
         }
 
