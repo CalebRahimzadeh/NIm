@@ -13,7 +13,8 @@ namespace Nim
         private int[] _board;
         private bool isTurn;
         State currentState; 
-
+        UI ui = new UI();
+        //create board
         public GameEngine()
         {
             //Random Turn
@@ -42,22 +43,25 @@ namespace Nim
 
         public void PlayComputerVsPlayer()
         {
-            TakeTurn();
+            TakeTurn(state);
+            RemovePieces(ui.PromptRow(state), ui.PromptRemoval(state));
         }
 
-        public void PlayComputerVsComputer()
+        public void PlayComputerVsComputer(State state)
         {
-            TakeTurn();
+            TakeTurn(state);
+            RemovePieces(ui.PromptRow(state), ui.PromptRemoval(state));
         }
 
-        public void PlayerVsPlayer()
+        public void PlayerVsPlayer(State state)
         {
-            TakeTurn();
+            TakeTurn(state);
+            RemovePieces(ui.PromptRow(state), ui.PromptRemoval(state));
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
         {
-
+            _board[targetRow] -= removeAmt;
         }
         public bool StartingTurn()
         {
@@ -73,16 +77,17 @@ namespace Nim
             }
         }
 
-        public void TakeTurn()
+        public bool TakeTurn(State state)
         {
             if (isTurn)
             {
-                RemovePieces(UI.PromptRow(), UI.PromptRemoval());
+                isTurn = !isTurn;
             }
-            else if (isTurn)
+            else if (!isTurn)
             {
-                RemovePieces(UI.PromptRow(), UI.PromptRemoval());
+                isTurn = !isTurn;
             }
+            return isTurn;
         }
     }
 
