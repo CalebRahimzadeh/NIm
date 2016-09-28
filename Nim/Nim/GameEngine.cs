@@ -30,7 +30,6 @@ namespace Nim
                 AI.StateTree.Add(_board, defaultState);
             }
         }
-
         public void printBoard()
         {
             for (int i = 0; i < _board.Length; i++)
@@ -57,12 +56,21 @@ namespace Nim
 
         public void PlayerVsPlayer()
         {
-                printBoard();
-            if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+            bool gameGoing = true;
+            while(gameGoing)
             {
-                SwitchTurn();
-                RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                printBoard();
+                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                {
+                    SwitchTurn();
+                    RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                }
+                else
+                {
+                    gameGoing = false;
+                }
             }
+
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
