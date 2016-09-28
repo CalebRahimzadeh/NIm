@@ -49,14 +49,14 @@ namespace Nim
 
         public void PlayComputerVsComputer()
         {
-            TakeTurn(currentState);
+            TakeTurn();
             RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
 
-        public void PlayerVsPlayer(State state)
+        public void PlayerVsPlayer()
         {
-            TakeTurn(state);
-            RemovePieces(ui.PromptRow(state), ui.PromptRemoval(state));
+            TakeTurn();
+            RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
         }
 
         public void RemovePieces(int targetRow, int removeAmt)
