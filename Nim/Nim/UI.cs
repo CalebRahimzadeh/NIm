@@ -8,6 +8,7 @@ namespace Nim
 {
     class UI
     {
+        public int row;
         public static int PromptMenu()
         {
             Console.WriteLine("1: PvP\n2: PvC\n3: CVC\n4: Exit");
@@ -21,13 +22,13 @@ namespace Nim
             }
             return -1;
         }
-
-        public static int PromptRow(State state)
+        public int PromptRow(State state)
         {
             Console.WriteLine("Which row are you modifying? (1, 2, 3)");
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
+                row = input;
                 if (isValidRow(input, state))
                 {
                     return input;
@@ -36,7 +37,7 @@ namespace Nim
             return 0;
         }
 
-        public static int PromptRemoval(State state)
+        public int PromptRemoval(State state)
         {
             Console.WriteLine("How many pieces are you removing?");
             int input;
@@ -82,10 +83,9 @@ namespace Nim
             return ((input == 1 && state.RowOneValue > 0) || (input == 2 && state.RowTwoValue > 0) || (input == 3 && state.RowThreeValue > 0));
         }
 
-        private static bool isValidRemoval(int input, State state)
+        private bool isValidRemoval(int input, State state)
         {
-            //if row pieces >= removal number
-            return ((state.RowOneValue >= input) || (state.RowTwoValue >= input) || (state.RowThreeValue >= input));
+            return ((row == 1 && state.RowOneValue >= input) || (row == 2 && state.RowTwoValue >= input) || (row == 3 && state.RowThreeValue >= input));
         }
 
         private static bool isValidGameNumber(int input)
@@ -97,7 +97,5 @@ namespace Nim
             }
             return isValid;
         }
-
-
     }
 }
