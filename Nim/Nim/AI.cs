@@ -67,17 +67,17 @@ namespace Nim
             Random r = new Random(rand.Next());
             int cpuRow = r.Next(2) + 1;
             int cpuRemove = 1;
-            if (cpuRow == 1 && currentState.RowOneValue > 0)
+            if (cpuRow == 1 && currentState.RowValues[0] > 0)
             {
-                cpuRemove = r.Next(currentState.RowOneValue) + 1;
+                cpuRemove = r.Next(currentState.RowValues[0]) + 1;
             }
-            else if (cpuRow == 2 && currentState.RowTwoValue > 0)
+            else if (cpuRow == 2 && currentState.RowValues[1] > 0)
             {
-                cpuRemove = r.Next(currentState.RowTwoValue) + 1;
+                cpuRemove = r.Next(currentState.RowValues[1]) + 1;
             }
-            else if (cpuRow == 3 && currentState.RowThreeValue > 0)
+            else if (cpuRow == 3 && currentState.RowValues[3] > 0)
             {
-                cpuRemove = r.Next(currentState.RowThreeValue) + 1;
+                cpuRemove = r.Next(currentState.RowValues[3]) + 1;
             }
 
             return new PossibleMove(cpuRow, cpuRemove);
