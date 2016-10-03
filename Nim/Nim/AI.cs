@@ -61,9 +61,7 @@ namespace Nim
         }
         private static PossibleMove ChooseRandomMove(State currentState)
         {
-            //maybe return a state
             Random rand = new Random();
-           
             Random r = new Random(rand.Next());
             int cpuRow = r.Next(2) + 1;
             int cpuRemove = 1;

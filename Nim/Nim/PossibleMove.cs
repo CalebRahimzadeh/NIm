@@ -18,7 +18,6 @@ namespace Nim
         public int NumberToRemove { get; set; }
         public int NumberOccured { get; set; } = 1;
         public Tuple<int,int> SumScore { get; set; }
-
         public State RemovePieces(int[] board)
         {
             board[Row - 1] -= NumberToRemove;
