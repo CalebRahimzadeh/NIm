@@ -8,6 +8,7 @@ namespace Nim
 {
     class AppEngine
     {
+        private const int MAX_ROWS = 3;
         bool keepGoing = true;
         // Create game.
         public void StartEngine()
@@ -22,6 +23,7 @@ namespace Nim
                 }
                 MakeChoice(choice);
             }
+            AI.StateTree.Add(new State(new int[MAX_ROWS] { 0, 0, 0 }), new Dictionary<PossibleMove, double>() { { new PossibleMove(), -1 } });
 
         }
 

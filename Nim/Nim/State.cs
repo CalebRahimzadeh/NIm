@@ -10,6 +10,7 @@ namespace Nim
     {
         public State(int[] board)
         {
+            RowValues = board;
             RowOneValue = board[0];
             RowTwoValue = board[1];
             RowThreeValue = board[2];
@@ -19,7 +20,8 @@ namespace Nim
         public int RowTwoValue { get; set; }
         public int RowThreeValue { get; set; }
 
-        public double Average { get; set; } = 0.0;
-
+        // Needs to be refactored
+        public int[] RowValues { get; set; }
+        
     }
 }

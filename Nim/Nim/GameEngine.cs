@@ -13,22 +13,18 @@ namespace Nim
         private int[] _board;
         private bool isTurn;
         private State currentState;
+        private State _endState = new State(new int[] { 0, 0, 0 });  //-1 //second to last is +1 //third to last -1/2 //4th to last is +1/2
+        private List<State> gameHistory = new List<State>();
         private UI ui = new UI();
-        //create board
+
+        //        where an Average is the average value and the total number of things averaged over
+        //to calculate a new average you multiply the average by the number of things, add the new value, and divide by the number of things + 1
+
         public GameEngine()
         {
-            //Random Turn
             isTurn = StartingTurn();
-            // Construct rows.
             _board = new int[MAX_ROWS] { 3, 5, 7 };
             currentState = new State(_board);
-            GameHistory.Add(currentState);
-
-            if (!AI.StateTree.ContainsKey(_board))
-            {
-                State defaultState = new State(_board) { Average = 0 };
-                AI.StateTree.Add(_board, defaultState);
-            }
         }
         public void printBoard()
         {
@@ -54,33 +50,44 @@ namespace Nim
                 if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
                 {
                     SwitchTurn();
-                    if(!isTurn)
+                    gameHistory.Add(currentState);
+                    if (!isTurn)
                     {
-                        RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
-                    } 
+                        PossibleMove playersMove = new PossibleMove(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                        playersMove.RemovePieces(currentState.RowValues);
+                        //RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                    }
                     else
                     {
-                        Random r = new Random();
-                        int cpuRow = r.Next(2) + 1;
-                        if(cpuRow == 1 && currentState.RowOneValue > 0)
-                        {
-                            int cpuRemove = r.Next(currentState.RowOneValue) + 1;
-                            RemovePieces(cpuRow, cpuRemove);
-                        }
-                        else if (cpuRow == 2 && currentState.RowTwoValue > 0)
-                        {
-                            int cpuRemove = r.Next(currentState.RowTwoValue) + 1;
-                            RemovePieces(cpuRow, cpuRemove);
-                        }
-                        else if (cpuRow == 3 && currentState.RowThreeValue > 0)
-                        {
-                            int cpuRemove = r.Next(currentState.RowThreeValue) + 1;
-                            RemovePieces(cpuRow, cpuRemove);
-                        }
+                        var possibleMoves = GeneratePossibleMoves(currentState);
+                        currentState = AI.PerformMove(currentState);
                     }
                 }
                 else
                 {
+                    gameHistory.Add(_endState);
+                    bool flipper = false;
+                    int negCounter = 0;
+                    int negDenominator = gameHistory.Count / 2;
+                    int posDenominator = ((gameHistory.Count - negDenominator) - 1);
+                    int posCounter = 0;
+                    for (int j = gameHistory.Count; j > 1; j--)
+                    {
+
+                        foreach (var item in AI.StateTree[gameHistory[j]])
+                        {
+                            if (flipper == false)
+                            {
+                                item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
+                            }
+                            else
+                            {
+                                item.Key.SumScore = new Tuple<int, int>(++posCounter, posDenominator);
+                            }
+                            item.Key.NumberOccured++;
+                        }
+                    }
+                    AI.CalculateAverage(gameHistory);
                     ui.gameOver(isTurn);
                     gameGoing = false;
                 }
@@ -89,6 +96,52 @@ namespace Nim
 
         public void PlayComputerVsComputer()
         {
+                bool gameGoing = true;
+                while (gameGoing)
+                {
+                    printBoard();
+                    if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                    {
+                        SwitchTurn();
+                        gameHistory.Add(currentState);
+                        AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
+                        currentState = AI.PerformMove(currentState);
+                    }
+                    else
+                    {
+                        gameHistory.Add(_endState);
+                        bool flipper = false;
+                        int negCounter = 0;
+                        int negDenominator = gameHistory.Count / 2;
+                        int posDenominator = ((gameHistory.Count - negDenominator)-1);
+                        int posCounter = 0;
+                        for (int j = gameHistory.Count; j > 1; j--)
+                        {
+
+                            foreach (var item in AI.StateTree[gameHistory[j]])
+                            {
+                                if (flipper == false)
+                                {
+                                    item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
+                                }
+                                else
+                                {
+                                    item.Key.SumScore = new Tuple<int, int>(++posCounter, posDenominator);
+                                }
+                                item.Key.NumberOccured++;
+                            }
+
+                        }
+
+                        AI.CalculateAverage(gameHistory);
+                        ui.gameOver(isTurn);
+                        gameGoing = false;
+                    }
+            }
+        }
+
+        public void PlayerVsPlayer()
+        {
             bool gameGoing = true;
             while (gameGoing)
             {
@@ -96,7 +149,9 @@ namespace Nim
                 if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
                 {
                     SwitchTurn();
-                    RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                    PossibleMove move = new PossibleMove(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                    currentState = move.RemovePieces(currentState.RowValues);
+
                 }
                 else
                 {
@@ -106,30 +161,28 @@ namespace Nim
             }
         }
 
-        public void PlayerVsPlayer()
+        public Dictionary<PossibleMove, double> GeneratePossibleMoves(State currentState)
         {
-            bool gameGoing = true;
-            while(gameGoing)
+            Dictionary<PossibleMove, double> statesPosMoves = new Dictionary<PossibleMove, double>();
+            int removalLimit = 3;
+            for (int i = 1; i <= MAX_ROWS; i++)
             {
-                printBoard();
-                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                if (i == 2)
                 {
-                    SwitchTurn();
-                    RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                    removalLimit = 5;
                 }
-                else
+                else if (i == 3)
                 {
-                    ui.gameOver(isTurn);
-                    gameGoing = false;
+                    removalLimit = 7;
+                }
+
+                for (int j = 1; j < removalLimit; j++)
+                {
+                    PossibleMove posMove = new PossibleMove(i, j);
+                    statesPosMoves.Add(posMove, 0);
                 }
             }
-        }
-
-        public void RemovePieces(int targetRow, int removeAmt)
-        {
-            _board[targetRow - 1] -= removeAmt;
-            currentState = new State(_board);
-            GameHistory.Add(currentState);
+            return statesPosMoves;
         }
 
         public bool StartingTurn()
@@ -160,8 +213,7 @@ namespace Nim
             }
             return isTurn;
         }
-        // Get rid of after you preform the calculation of averages
-        public List<State> GameHistory { get; set; } = new List<State>();
+
     }
 
 }
