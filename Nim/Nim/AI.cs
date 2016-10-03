@@ -51,9 +51,9 @@ namespace Nim
             {
                 if(!possibleMoves.ContainsKey(bestMove))
                 {
-                    bestMove = move;
+                    bestMove = ChooseRandomMove(currentState);
                 }
-                if (possibleMoves[move].CompareTo(possibleMoves[bestMove]) == 1)
+                else if (possibleMoves[move].CompareTo(possibleMoves[bestMove]) == 1)
                 {
                     bestMove = move;
                 }
@@ -63,7 +63,9 @@ namespace Nim
         private static PossibleMove ChooseRandomMove(State currentState)
         {
             //maybe return a state
-            Random r = new Random();
+            Random rand = new Random();
+           
+            Random r = new Random(rand.Next());
             int cpuRow = r.Next(2) + 1;
             int cpuRemove = 1;
             if (cpuRow == 1 && currentState.RowOneValue > 0)
