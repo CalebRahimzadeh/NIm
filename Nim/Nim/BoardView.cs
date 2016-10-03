@@ -8,7 +8,7 @@ namespace Nim
 {
     class BoardView
     {
-        public static void printBoard(int[] _board)
+        public static void PrintBoard(int[] _board)
         {
             Console.WriteLine("");
             for (int i = 0; i < _board.Length; i++)
@@ -21,6 +21,11 @@ namespace Nim
                 Console.WriteLine("");
             }
             Console.WriteLine("");
+        }
+
+        internal static void PrintBoard()
+        {
+            throw new NotImplementedException();
         }
     }
 }

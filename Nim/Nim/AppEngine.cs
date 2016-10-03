@@ -52,7 +52,7 @@ namespace Nim
             }
             else if (choice == 4)
             {
-                Console.WriteLine("Goodbye!")
+                Console.WriteLine("Goodbye!");
                 keepGoing = false;
             }
         }
