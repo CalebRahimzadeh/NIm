@@ -15,14 +15,21 @@ namespace Nim
             double average = 0;
             foreach (var state in gameHistory)
             {
-                foreach (var move in StateTree[state].Keys)
+                bool atEnd = false;
+                if (state.RowValues[0] == 0 && state.RowValues[1] == 0 && state.RowValues[2] == 0)
                 {
-                    //calculate move average
-                    double convertedToDecimal = (move.SumScore.Item1 / move.SumScore.Item2);
-                    double oldAvg = StateTree[state][move];
-                    average = oldAvg + ((convertedToDecimal - oldAvg) / move.NumberOccured);
+                    atEnd = true;
+                }
+                if (!atEnd)
+                {
+                    foreach (var move in StateTree[state].Keys)
+                    {
+                        double convertedToDecimal = (move.SumScore.Item1 / move.SumScore.Item2);
+                        double oldAvg = StateTree[state][move];
+                        average = oldAvg + ((convertedToDecimal - oldAvg) / move.NumberOccured);
 
-                    StateTree[state][move] = average;
+                        StateTree[state][move] = average;
+                    }
                 }
             }
 
@@ -31,7 +38,7 @@ namespace Nim
 
         public static State PerformMove(State currentState)
         {
-            PossibleMove move = CheckPossibleMoves(currentState);
+            PossibleMove move = CheckPossibleMoves(currentState);// StateTree[currentState].First().Key;
             ++move.NumberOccured;
             return move.RemovePieces(currentState.RowValues);
         }
@@ -42,7 +49,11 @@ namespace Nim
 
             foreach (var move in possibleMoves.Keys)
             {
-                if (possibleMoves[move] > possibleMoves[bestMove])
+                if(!possibleMoves.ContainsKey(bestMove))
+                {
+                    bestMove = move;
+                }
+                if (possibleMoves[move].CompareTo(possibleMoves[bestMove]) == 1)
                 {
                     bestMove = move;
                 }
@@ -54,7 +65,7 @@ namespace Nim
             //maybe return a state
             Random r = new Random();
             int cpuRow = r.Next(2) + 1;
-            int cpuRemove = 0;
+            int cpuRemove = 1;
             if (cpuRow == 1 && currentState.RowOneValue > 0)
             {
                 cpuRemove = r.Next(currentState.RowOneValue) + 1;

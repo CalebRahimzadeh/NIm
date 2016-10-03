@@ -34,7 +34,7 @@ namespace Nim
                 Console.Write(i + 1);
                 for (int j = 0; j < _board[i]; j++)
                 {
-                    Console.Write("*");
+                    Console.Write("X");
                 }
                 Console.WriteLine("");
             }
@@ -43,27 +43,74 @@ namespace Nim
 
         public void PlayComputerVsPlayer()
         {
-            int cpuRow = 0;
-            int cpuRemove = 0;
             bool gameGoing = true;
             while (gameGoing)
             {
                 printBoard();
                 if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
                 {
-                    SwitchTurn();
-                    gameHistory.Add(currentState);
-                    if (!isTurn)
+                    if (!AI.StateTree.ContainsKey(currentState))
                     {
-                        PossibleMove playersMove = new PossibleMove(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
-                        playersMove.RemovePieces(currentState.RowValues);
-                        //RemovePieces(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                        AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
+                    }
+                        SwitchTurn();
+                        if (!isTurn)
+                        {
+                            PossibleMove playersMove = new PossibleMove(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                            currentState = playersMove.RemovePieces(currentState.RowValues);
+                        }
+                        else
+                        {
+                            var possibleMoves = GeneratePossibleMoves(currentState);
+                            currentState = AI.PerformMove(currentState);
+                            gameHistory.Add(currentState);
+                        }
                     }
                     else
                     {
-                        var possibleMoves = GeneratePossibleMoves(currentState);
-                        currentState = AI.PerformMove(currentState);
+                        gameHistory.Add(_endState);
+                        bool flipper = false;
+                        int negCounter = 0;
+                        int negDenominator = gameHistory.Count / 2;
+                        int posDenominator = ((gameHistory.Count - negDenominator) - 1);
+                        int posCounter = 0;
+                        for (int j = gameHistory.Count; j > 1; j--)
+                        {
+
+                            foreach (var item in AI.StateTree[gameHistory[j]])
+                            {
+                                if (flipper == false)
+                                {
+                                    item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
+                                }
+                                else
+                                {
+                                    item.Key.SumScore = new Tuple<int, int>(++posCounter, posDenominator);
+                                }
+                                item.Key.NumberOccured++;
+                            }
+                        }
+                        AI.CalculateAverage(gameHistory);
+                        ui.gameOver(isTurn);
+                        gameGoing = false;
                     }
+
+                }
+            }
+
+        public void PlayComputerVsComputer()
+        {
+            bool gameGoing = true;
+            while (gameGoing)
+            {
+                printBoard();
+                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                {
+                    AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
+                    SwitchTurn();
+                    gameHistory.Add(currentState);
+
+                    currentState = AI.PerformMove(currentState);
                 }
                 else
                 {
@@ -88,57 +135,13 @@ namespace Nim
                             }
                             item.Key.NumberOccured++;
                         }
+
                     }
+
                     AI.CalculateAverage(gameHistory);
                     ui.gameOver(isTurn);
                     gameGoing = false;
                 }
-            }
-        }
-
-        public void PlayComputerVsComputer()
-        {
-                bool gameGoing = true;
-                while (gameGoing)
-                {
-                    printBoard();
-                    if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
-                    {
-                        SwitchTurn();
-                        gameHistory.Add(currentState);
-                        AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
-                        currentState = AI.PerformMove(currentState);
-                    }
-                    else
-                    {
-                        gameHistory.Add(_endState);
-                        bool flipper = false;
-                        int negCounter = 0;
-                        int negDenominator = gameHistory.Count / 2;
-                        int posDenominator = ((gameHistory.Count - negDenominator)-1);
-                        int posCounter = 0;
-                        for (int j = gameHistory.Count; j > 1; j--)
-                        {
-
-                            foreach (var item in AI.StateTree[gameHistory[j]])
-                            {
-                                if (flipper == false)
-                                {
-                                    item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
-                                }
-                                else
-                                {
-                                    item.Key.SumScore = new Tuple<int, int>(++posCounter, posDenominator);
-                                }
-                                item.Key.NumberOccured++;
-                            }
-
-                        }
-
-                        AI.CalculateAverage(gameHistory);
-                        ui.gameOver(isTurn);
-                        gameGoing = false;
-                    }
             }
         }
 
@@ -181,7 +184,10 @@ namespace Nim
                 for (int j = 1; j < removalLimit; j++)
                 {
                     PossibleMove posMove = new PossibleMove(i, j);
-                    statesPosMoves.Add(posMove, 0);
+                    if (!statesPosMoves.ContainsKey(posMove))
+                    {
+                        statesPosMoves.Add(posMove, 0);
+                    }
                 }
             }
             return statesPosMoves;
