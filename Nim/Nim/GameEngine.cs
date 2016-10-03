@@ -43,6 +43,8 @@ namespace Nim
 
         public void PlayComputerVsPlayer()
         {
+            int cpuRow = 0;
+            int cpuRemove = 0;
             bool gameGoing = true;
             while (gameGoing)
             {
