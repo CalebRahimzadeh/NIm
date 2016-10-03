@@ -13,12 +13,9 @@ namespace Nim
         private int[] _board;
         private bool isTurn;
         private State currentState;
-        private State _endState = new State(new int[] { 0, 0, 0 });  //-1 //second to last is +1 //third to last -1/2 //4th to last is +1/2
+        private State _endState = new State(new int[] { 0, 0, 0 });
         private List<State> gameHistory = new List<State>();
         private UI ui = new UI();
-
-        //        where an Average is the average value and the total number of things averaged over
-        //to calculate a new average you multiply the average by the number of things, add the new value, and divide by the number of things + 1
 
         public GameEngine()
         {

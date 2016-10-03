@@ -24,6 +24,7 @@ namespace Nim
 
         public static bool isValidRow(int input, State state)
         {
+           
             return ((input == 1 && state.RowOneValue > 0) || (input == 2 && state.RowTwoValue > 0) || (input == 3 && state.RowThreeValue > 0));
         }
 
