@@ -53,50 +53,29 @@ namespace Nim
                     {
                         AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
                     }
-                        SwitchTurn();
-                        if (!isTurn)
-                        {
-                            PossibleMove playersMove = new PossibleMove(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
-                            currentState = playersMove.RemovePieces(currentState.RowValues);
-                        }
-                        else
-                        {
-                            var possibleMoves = GeneratePossibleMoves(currentState);
-                            currentState = AI.PerformMove(currentState);
-                            gameHistory.Add(currentState);
-                        }
+                    SwitchTurn();
+                    if (!isTurn)
+                    {
+                        PossibleMove playersMove = new PossibleMove(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
+                        currentState = playersMove.RemovePieces(currentState.RowValues);
                     }
                     else
                     {
-                        gameHistory.Add(_endState);
-                        bool flipper = false;
-                        int negCounter = 0;
-                        int negDenominator = gameHistory.Count / 2;
-                        int posDenominator = ((gameHistory.Count - negDenominator) - 1);
-                        int posCounter = 0;
-                        for (int j = gameHistory.Count; j > 1; j--)
-                        {
-
-                            foreach (var item in AI.StateTree[gameHistory[j]])
-                            {
-                                if (flipper == false)
-                                {
-                                    item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
-                                }
-                                else
-                                {
-                                    item.Key.SumScore = new Tuple<int, int>(++posCounter, posDenominator);
-                                }
-                                item.Key.NumberOccured++;
-                            }
-                        }
-                        AI.CalculateAverage(gameHistory);
-                        ui.gameOver(isTurn);
-                        gameGoing = false;
+                        var possibleMoves = GeneratePossibleMoves(currentState);
+                        currentState = AI.PerformMove(currentState);
+                        gameHistory.Add(currentState);
                     }
-
                 }
+                else
+                {
+                    CalculateSumScores();
+                    AI.CalculateAverage(gameHistory);
+                    ui.gameOver(isTurn);
+                    gameGoing = false;
+                }
+
             }
+        }
 
         public void PlayComputerVsComputer()
         {
@@ -114,30 +93,7 @@ namespace Nim
                 }
                 else
                 {
-                    gameHistory.Add(_endState);
-                    bool flipper = false;
-                    int negCounter = 0;
-                    int negDenominator = gameHistory.Count / 2;
-                    int posDenominator = ((gameHistory.Count - negDenominator) - 1);
-                    int posCounter = 0;
-                    for (int j = gameHistory.Count; j > 1; j--)
-                    {
-
-                        foreach (var item in AI.StateTree[gameHistory[j]])
-                        {
-                            if (flipper == false)
-                            {
-                                item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
-                            }
-                            else
-                            {
-                                item.Key.SumScore = new Tuple<int, int>(++posCounter, posDenominator);
-                            }
-                            item.Key.NumberOccured++;
-                        }
-
-                    }
-
+                    CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
                     ui.gameOver(isTurn);
                     gameGoing = false;
@@ -165,7 +121,31 @@ namespace Nim
                 }
             }
         }
+        private void CalculateSumScores()
+        {
+            gameHistory.Add(_endState);
+            bool flipper = false;
+            int negCounter = 0;
+            int negDenominator = gameHistory.Count / 2;
+            int posDenominator = ((gameHistory.Count - negDenominator) - 1);
+            int posCounter = 0;
+            for (int j = gameHistory.Count; j > 1; j--)
+            {
 
+                foreach (var item in AI.StateTree[gameHistory[j]])
+                {
+                    if (flipper == false)
+                    {
+                        item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
+                    }
+                    else
+                    {
+                        item.Key.SumScore = new Tuple<int, int>(++posCounter, posDenominator);
+                    }
+                    item.Key.NumberOccured++;
+                }
+            }
+        }
         public Dictionary<PossibleMove, double> GeneratePossibleMoves(State currentState)
         {
             Dictionary<PossibleMove, double> statesPosMoves = new Dictionary<PossibleMove, double>();
