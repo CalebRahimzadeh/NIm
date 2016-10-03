@@ -23,14 +23,26 @@ namespace Nim
             _board = new int[MAX_ROWS] { 3, 5, 7 };
             currentState = new State(_board);
         }
-        
+        public void printBoard()
+        {
+            for (int i = 0; i < _board.Length; i++)
+            {
+                Console.Write(i + 1);
+                for (int j = 0; j < _board[i]; j++)
+                {
+                    Console.Write("X");
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("");
+        }
 
         public void PlayComputerVsPlayer()
         {
             bool gameGoing = true;
             while (gameGoing)
             {
-                BoardView.printBoard(_board);
+                printBoard();
                 if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     if (!AI.StateTree.ContainsKey(currentState))
@@ -66,7 +78,7 @@ namespace Nim
             bool gameGoing = true;
             while (gameGoing)
             {
-                BoardView.printBoard(_board);
+                printBoard();
                 if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
@@ -90,7 +102,7 @@ namespace Nim
             bool gameGoing = true;
             while (gameGoing)
             {
-                BoardView.printBoard(_board);
+                printBoard();
                 if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     SwitchTurn();
