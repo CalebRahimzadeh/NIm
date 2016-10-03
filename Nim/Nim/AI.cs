@@ -8,7 +8,6 @@ namespace Nim
 {
     class AI : IPlayer
     {
-        //public static Dictionary<int[], State> StateTree { get; set; } =  new Dictionary<int[], State>();
         public static Dictionary<State, Dictionary<PossibleMove, double>> StateTree { get; set; } = new Dictionary<State, Dictionary<PossibleMove, double>>();
         public static double CalculateAverage(List<State> gameHistory)
         {
@@ -38,18 +37,18 @@ namespace Nim
 
         public static State PerformMove(State currentState)
         {
-            PossibleMove move = CheckPossibleMoves(currentState);// StateTree[currentState].First().Key;
+            PossibleMove move = DetermineBestMove(currentState);// StateTree[currentState].First().Key;
             ++move.NumberOccured;
             return move.RemovePieces(currentState.RowValues);
         }
-        private static PossibleMove CheckPossibleMoves(State currentState)
+        private static PossibleMove DetermineBestMove(State currentState)
         {
             var possibleMoves = StateTree[currentState];
             PossibleMove bestMove = ChooseRandomMove(currentState);
 
             foreach (var move in possibleMoves.Keys)
             {
-                if(!possibleMoves.ContainsKey(bestMove))
+                if (!possibleMoves.ContainsKey(bestMove))
                 {
                     bestMove = ChooseRandomMove(currentState);
                 }
@@ -68,17 +67,17 @@ namespace Nim
             Random r = new Random(rand.Next());
             int cpuRow = r.Next(2) + 1;
             int cpuRemove = 1;
-            if (cpuRow == 1 && currentState.RowOneValue > 0)
+            if (cpuRow == 1 && currentState.RowValues[0] > 0)
             {
-                cpuRemove = r.Next(currentState.RowOneValue) + 1;
+                cpuRemove = r.Next(currentState.RowValues[0]) + 1;
             }
-            else if (cpuRow == 2 && currentState.RowTwoValue > 0)
+            else if (cpuRow == 2 && currentState.RowValues[1] > 0)
             {
-                cpuRemove = r.Next(currentState.RowTwoValue) + 1;
+                cpuRemove = r.Next(currentState.RowValues[1]) + 1;
             }
-            else if (cpuRow == 3 && currentState.RowThreeValue > 0)
+            else if (cpuRow == 3 && currentState.RowValues[3] > 0)
             {
-                cpuRemove = r.Next(currentState.RowThreeValue) + 1;
+                cpuRemove = r.Next(currentState.RowValues[3]) + 1;
             }
 
             return new PossibleMove(cpuRow, cpuRemove);

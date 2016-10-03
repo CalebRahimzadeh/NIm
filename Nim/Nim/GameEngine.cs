@@ -34,7 +34,7 @@ namespace Nim
             while (gameGoing)
             {
                 BoardView.printBoard(_board);
-                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     if (!AI.StateTree.ContainsKey(currentState))
                     {
@@ -57,7 +57,7 @@ namespace Nim
                 {
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
-                    ui.gameOver(isTurn);
+                    ui.GameOver(isTurn);
                     gameGoing = false;
                 }
 
@@ -70,7 +70,7 @@ namespace Nim
             while (gameGoing)
             {
                 BoardView.printBoard(_board);
-                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
                     SwitchTurn();
@@ -82,7 +82,7 @@ namespace Nim
                 {
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
-                    ui.gameOver(isTurn);
+                    ui.GameOver(isTurn);
                     gameGoing = false;
                 }
             }
@@ -94,7 +94,7 @@ namespace Nim
             while (gameGoing)
             {
                 BoardView.printBoard(_board);
-                if (currentState.RowOneValue > 0 || currentState.RowTwoValue > 0 || currentState.RowThreeValue > 0)
+                if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     SwitchTurn();
                     PossibleMove move = new PossibleMove(ui.PromptRow(currentState), ui.PromptRemoval(currentState));
@@ -103,7 +103,7 @@ namespace Nim
                 }
                 else
                 {
-                    ui.gameOver(isTurn);
+                    ui.GameOver(isTurn);
                     gameGoing = false;
                 }
             }
@@ -178,12 +178,12 @@ namespace Nim
         {
             if (isTurn)
             {
-                ui.playerTurn(isTurn);
+                ui.DisplayPlayerTurn(isTurn);
                 isTurn = !isTurn;
             }
             else if (!isTurn)
             {
-                ui.playerTurn(isTurn);
+                ui.DisplayPlayerTurn(isTurn);
                 isTurn = !isTurn;
             }
             return isTurn;
