@@ -80,12 +80,12 @@ namespace Nim
 
         private static bool isValidRow(int input, State state)
         {
-            return ((input == 1 && state.RowOneValue > 0) || (input == 2 && state.RowTwoValue > 0) || (input == 3 && state.RowThreeValue > 0));
+            return ((input == 1 && state.RowValues[0] > 0) || (input == 2 && state.RowValues[1] > 0) || (input == 3 && state.RowValues[2] > 0));
         }
 
         private bool isValidRemoval(int input, State state)
         {
-            return ((row == 1 && state.RowOneValue >= input) || (row == 2 && state.RowTwoValue >= input) || (row == 3 && state.RowThreeValue >= input));
+            return ((row == 1 && state.RowValues[0] >= input) || (row == 2 && state.RowValues[1] >= input) || (row == 3 && state.RowValues[2] >= input));
         }
 
         private static bool isValidGameNumber(int input)
