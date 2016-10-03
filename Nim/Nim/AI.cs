@@ -8,7 +8,6 @@ namespace Nim
 {
     class AI : IPlayer
     {
-        //public static Dictionary<int[], State> StateTree { get; set; } =  new Dictionary<int[], State>();
         public static Dictionary<State, Dictionary<PossibleMove, double>> StateTree { get; set; } = new Dictionary<State, Dictionary<PossibleMove, double>>();
         public static double CalculateAverage(List<State> gameHistory)
         {
@@ -38,18 +37,18 @@ namespace Nim
 
         public static State PerformMove(State currentState)
         {
-            PossibleMove move = CheckPossibleMoves(currentState);// StateTree[currentState].First().Key;
+            PossibleMove move = DetermineBestMove(currentState);// StateTree[currentState].First().Key;
             ++move.NumberOccured;
             return move.RemovePieces(currentState.RowValues);
         }
-        private static PossibleMove CheckPossibleMoves(State currentState)
+        private static PossibleMove DetermineBestMove(State currentState)
         {
             var possibleMoves = StateTree[currentState];
             PossibleMove bestMove = ChooseRandomMove(currentState);
 
             foreach (var move in possibleMoves.Keys)
             {
-                if(!possibleMoves.ContainsKey(bestMove))
+                if (!possibleMoves.ContainsKey(bestMove))
                 {
                     bestMove = ChooseRandomMove(currentState);
                 }

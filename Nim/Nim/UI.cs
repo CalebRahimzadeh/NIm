@@ -15,7 +15,7 @@ namespace Nim
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
-                if (isValidInputRange(input))
+                if (InputValidation.isValidInputRange(input))
                 {
                     return input;
                 }
@@ -29,7 +29,7 @@ namespace Nim
             if (int.TryParse(Console.ReadLine(), out input))
             {
                 row = input;
-                if (isValidRow(input, state))
+                if (InputValidation.isValidRow(input, state))
                 {
                     return input;
                 }
@@ -43,7 +43,7 @@ namespace Nim
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
-                if (isValidRemoval(input, state))
+                if (InputValidation.isValidRemoval(row, input, state))
                 {
                     return input;
                 }
@@ -57,7 +57,7 @@ namespace Nim
             int input;
             if (int.TryParse(Console.ReadLine(), out input))
             {
-                if (isValidGameNumber(input))
+                if (InputValidation.isValidGameNumber(input))
                 {
                     return input;
                 }
@@ -65,40 +65,7 @@ namespace Nim
             return 0;
         }
 
-        private static bool isValidInputRange(int input)
-        {
-            bool isValid = false;
-            if (input > 0 && input < 5)
-            {
-                return !isValid;
-            }
-            else
-            {
-                return isValid;
-            }
-        }
-
-        private static bool isValidRow(int input, State state)
-        {
-            return ((input == 1 && state.RowOneValue > 0) || (input == 2 && state.RowTwoValue > 0) || (input == 3 && state.RowThreeValue > 0));
-        }
-
-        private bool isValidRemoval(int input, State state)
-        {
-            return ((row == 1 && state.RowOneValue >= input) || (row == 2 && state.RowTwoValue >= input) || (row == 3 && state.RowThreeValue >= input));
-        }
-
-        private static bool isValidGameNumber(int input)
-        {
-            bool isValid = false;
-            if (input > 0)
-            {
-                isValid = true;
-            }
-            return isValid;
-        }
-
-        public void playerTurn(bool turn)
+        public void DisplayPlayerTurn(bool turn)
         {
             if (!turn)
             {
@@ -110,7 +77,7 @@ namespace Nim
             }
         }
 
-        public void gameOver(bool turn)
+        public void GameOver(bool turn)
         {
             if(!turn)
             {

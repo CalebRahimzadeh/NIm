@@ -70,7 +70,7 @@ namespace Nim
                 {
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
-                    ui.gameOver(isTurn);
+                    ui.GameOver(isTurn);
                     gameGoing = false;
                 }
 
@@ -95,7 +95,7 @@ namespace Nim
                 {
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
-                    ui.gameOver(isTurn);
+                    ui.GameOver(isTurn);
                     gameGoing = false;
                 }
             }
@@ -116,7 +116,7 @@ namespace Nim
                 }
                 else
                 {
-                    ui.gameOver(isTurn);
+                    ui.GameOver(isTurn);
                     gameGoing = false;
                 }
             }
@@ -191,12 +191,12 @@ namespace Nim
         {
             if (isTurn)
             {
-                ui.playerTurn(isTurn);
+                ui.DisplayPlayerTurn(isTurn);
                 isTurn = !isTurn;
             }
             else if (!isTurn)
             {
-                ui.playerTurn(isTurn);
+                ui.DisplayPlayerTurn(isTurn);
                 isTurn = !isTurn;
             }
             return isTurn;
