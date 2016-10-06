@@ -88,7 +88,7 @@ namespace Nim
             bool gameGoing = true;
             while (gameGoing)
             {
-                BoardView.PrintBoard(_board);
+                BoardView.PrintBoard(currentState.RowValues);
                 if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     SwitchTurn();
@@ -116,7 +116,7 @@ namespace Nim
 
                 foreach (var item in AI.StateTree[gameHistory[j]])
                 {
-                    if (!flipper)
+                    if (flipper)
                     {
                         item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
                     }
@@ -159,14 +159,7 @@ namespace Nim
         {
             Random rand = new Random();
             bool boolReturn = false;
-            if (rand.Next(2) == 0)
-            {
-                return boolReturn;
-            }
-            else
-            {
-                return !boolReturn;
-            }
+            return rand.Next(2) == 0 ? boolReturn : !boolReturn;
         }
 
         public bool SwitchTurn()
