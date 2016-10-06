@@ -52,7 +52,7 @@ namespace Nim
                 {
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
-                    ui.GameOver(isTurn);
+                    ui.DisplayGameOver(isTurn);
                     gameGoing = false;
                 }
 
@@ -77,7 +77,7 @@ namespace Nim
                 {
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
-                    ui.GameOver(isTurn);
+                    ui.DisplayGameOver(isTurn);
                     gameGoing = false;
                 }
             }
@@ -98,7 +98,7 @@ namespace Nim
                 }
                 else
                 {
-                    ui.GameOver(isTurn);
+                    ui.DisplayGameOver(isTurn);
                     gameGoing = false;
                 }
             }

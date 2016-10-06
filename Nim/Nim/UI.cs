@@ -67,25 +67,14 @@ namespace Nim
 
         public void DisplayPlayerTurn(bool turn)
         {
-            if (!turn)
-            {
-                Console.WriteLine("Player 1 turn\n");
-            }
-            else if (turn)
-            {
-                Console.WriteLine("Player 2 turn\n");
-            }
+            string turnDisplay = (turn) ? "Player 2 turn\n" : "Player 1 turn\n";
+            Console.WriteLine(turnDisplay);
         }
 
-        public void GameOver(bool turn)
+        public void DisplayGameOver(bool turn)
         {
-            if(!turn)
-            {
-                Console.WriteLine("Player 1 wins!");
-            } else if (turn)
-            {
-                Console.WriteLine("Player 2 wins!");
-            }
+            string winMessage = (turn) ? "Player 1 wins!" : "Player 2 wins!";
+            Console.WriteLine(winMessage);
         }
     }
 }
