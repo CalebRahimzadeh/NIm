@@ -164,16 +164,8 @@ namespace Nim
 
         public bool SwitchTurn()
         {
-            if (isTurn)
-            {
-                ui.DisplayPlayerTurn(isTurn);
-                isTurn = !isTurn;
-            }
-            else if (!isTurn)
-            {
-                ui.DisplayPlayerTurn(isTurn);
-                isTurn = !isTurn;
-            }
+            ui.DisplayPlayerTurn(isTurn);
+            isTurn = !isTurn;
             return isTurn;
         }
 

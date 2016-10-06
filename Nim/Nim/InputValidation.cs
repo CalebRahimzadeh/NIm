@@ -12,14 +12,7 @@ namespace Nim
         public static bool isValidInputRange(int input)
         {
             bool isValid = false;
-            if (input > 0 && input < 5)
-            {
-                return !isValid;
-            }
-            else
-            {
-                return isValid;
-            }
+            return (input > 0 && input < 5) ? !isValid : isValid;
         }
 
         public static bool isValidRow(int input, State state)
