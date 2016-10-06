@@ -17,7 +17,6 @@ namespace Nim
 
         public static bool isValidRow(int input, State state)
         {
-           
             return ((input == 1 && state.RowValues[0] > 0) || (input == 2 && state.RowValues[1] > 0) || (input == 3 && state.RowValues[2] > 0));
         }
 
@@ -29,11 +28,7 @@ namespace Nim
         public static bool isValidGameNumber(int input)
         {
             bool isValid = false;
-            if (input > 0)
-            {
-                isValid = true;
-            }
-            return isValid;
+            return input > 0 ? isValid = true : isValid;
         }
     }
 }
