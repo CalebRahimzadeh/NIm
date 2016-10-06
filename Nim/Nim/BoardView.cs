@@ -22,10 +22,5 @@ namespace Nim
             }
             Console.WriteLine("");
         }
-
-        internal static void PrintBoard()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

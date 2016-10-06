@@ -28,7 +28,7 @@ namespace Nim
             bool gameGoing = true;
             while (gameGoing)
             {
-                BoardView.PrintBoard();
+                BoardView.PrintBoard(currentState.RowValues);
                 if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     if (!AI.StateTree.ContainsKey(currentState))
@@ -64,7 +64,7 @@ namespace Nim
             bool gameGoing = true;
             while (gameGoing)
             {
-                BoardView.PrintBoard();
+                BoardView.PrintBoard(currentState.RowValues);
                 if (currentState.RowValues[0] > 0 || currentState.RowValues[1] > 0 || currentState.RowValues[2] > 0)
                 {
                     AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
