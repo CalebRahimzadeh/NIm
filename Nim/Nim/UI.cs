@@ -26,43 +26,22 @@ namespace Nim
         {
             Console.WriteLine("Which row are you modifying? (1, 2, 3)\n");
             int input;
-            if (int.TryParse(Console.ReadLine(), out input))
-            {
-                row = input;
-                if (InputValidation.isValidRow(input, state))
-                {
-                    return input;
-                }
-            }
-            return 0;
+            row = int.TryParse(Console.ReadLine(), out input) && InputValidation.isValidRow(input, state) ? input : 0;
+            return row;
         }
 
         public int PromptRemoval(State state)
         {
             Console.WriteLine("How many pieces are you removing?\n");
             int input;
-            if (int.TryParse(Console.ReadLine(), out input))
-            {
-                if (InputValidation.isValidRemoval(row, input, state))
-                {
-                    return input;
-                }
-            }
-            return 0;
+            return int.TryParse(Console.ReadLine(), out input) && InputValidation.isValidRemoval(row, input, state) ? input : 0;
         }
 
         public static int PromptGameNumberAI()
         {
             Console.WriteLine("How many games would you like to be played?\n");
             int input;
-            if (int.TryParse(Console.ReadLine(), out input))
-            {
-                if (InputValidation.isValidGameNumber(input))
-                {
-                    return input;
-                }
-            }
-            return 0;
+            return int.TryParse(Console.ReadLine(), out input) && InputValidation.isValidGameNumber(input) ? input : 0;
         }
 
         public void DisplayPlayerTurn(bool turn)
