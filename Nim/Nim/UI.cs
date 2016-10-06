@@ -13,14 +13,7 @@ namespace Nim
         {
             Console.WriteLine("1: PvP\n2: PvC\n3: CVC\n4: Exit\n");
             int input;
-            if (int.TryParse(Console.ReadLine(), out input))
-            {
-                if (InputValidation.isValidInputRange(input))
-                {
-                    return input;
-                }
-            }
-            return -1;
+            return int.TryParse(Console.ReadLine(), out input) && InputValidation.isValidInputRange(input) ? input : -1;
         }
         public int PromptRow(State state)
         {
