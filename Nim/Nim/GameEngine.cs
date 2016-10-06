@@ -53,7 +53,7 @@ namespace Nim
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
                     ui.DisplayGameOver(isTurn);
-                    gameGoing = false;
+                    gameGoing = !gameGoing;
                 }
 
             }
@@ -70,7 +70,6 @@ namespace Nim
                     AI.StateTree.Add(currentState, GeneratePossibleMoves(currentState));
                     SwitchTurn();
                     gameHistory.Add(currentState);
-
                     currentState = AI.PerformMove(currentState);
                 }
                 else
@@ -78,7 +77,7 @@ namespace Nim
                     CalculateSumScores();
                     AI.CalculateAverage(gameHistory);
                     ui.DisplayGameOver(isTurn);
-                    gameGoing = false;
+                    gameGoing = !gameGoing;
                 }
             }
         }
@@ -99,7 +98,7 @@ namespace Nim
                 else
                 {
                     ui.DisplayGameOver(isTurn);
-                    gameGoing = false;
+                    gameGoing = !gameGoing;
                 }
             }
         }
@@ -111,9 +110,9 @@ namespace Nim
             int negDenominator = gameHistory.Count / 2;
             int posDenominator = ((gameHistory.Count - negDenominator) - 1);
             int posCounter = 0;
+
             for (int j = gameHistory.Count; j > 1; j--)
             {
-
                 foreach (var item in AI.StateTree[gameHistory[j]])
                 {
                     if (flipper)
@@ -170,6 +169,5 @@ namespace Nim
         }
 
     }
-
 }
 
