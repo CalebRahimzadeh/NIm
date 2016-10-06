@@ -159,14 +159,7 @@ namespace Nim
         {
             Random rand = new Random();
             bool boolReturn = false;
-            if (rand.Next(2) == 0)
-            {
-                return boolReturn;
-            }
-            else
-            {
-                return !boolReturn;
-            }
+            return rand.Next(2) == 0 ? boolReturn : !boolReturn;
         }
 
         public bool SwitchTurn()
