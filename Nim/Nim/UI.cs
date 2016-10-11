@@ -8,16 +8,16 @@ namespace Nim
 {
     class UI
     {
-        public int row;
+        private int row;
         public static int PromptMenu()
         {
             Console.WriteLine("1: PvP\n2: PvC\n3: CVC\n4: Exit\n");
-            int input;
-            if (int.TryParse(Console.ReadLine(), out input))
+            int menuSelectionInput;
+            if (int.TryParse(Console.ReadLine(), out menuSelectionInput))
             {
-                if (InputValidation.isValidInputRange(input))
+                if (InputValidation.isValidInputRange(menuSelectionInput))
                 {
-                    return input;
+                    return menuSelectionInput;
                 }
             }
             return -1;
@@ -25,13 +25,13 @@ namespace Nim
         public int PromptRow(State state)
         {
             Console.WriteLine("Which row are you modifying? (1, 2, 3)\n");
-            int input;
-            if (int.TryParse(Console.ReadLine(), out input))
+            int rowSelectionInput;
+            if (int.TryParse(Console.ReadLine(), out rowSelectionInput))
             {
-                row = input;
-                if (InputValidation.isValidRow(input, state))
+                row = rowSelectionInput;
+                if (InputValidation.isValidRow(rowSelectionInput, state))
                 {
-                    return input;
+                    return rowSelectionInput;
                 }
             }
             return 0;
@@ -40,12 +40,12 @@ namespace Nim
         public int PromptRemoval(State state)
         {
             Console.WriteLine("How many pieces are you removing?\n");
-            int input;
-            if (int.TryParse(Console.ReadLine(), out input))
+            int rowRemovalInput;
+            if (int.TryParse(Console.ReadLine(), out rowRemovalInput))
             {
-                if (InputValidation.isValidRemoval(row, input, state))
+                if (InputValidation.isValidRemoval(row, rowRemovalInput, state))
                 {
-                    return input;
+                    return rowRemovalInput;
                 }
             }
             return 0;
@@ -54,12 +54,12 @@ namespace Nim
         public static int PromptGameNumberAI()
         {
             Console.WriteLine("How many games would you like to be played?\n");
-            int input;
-            if (int.TryParse(Console.ReadLine(), out input))
+            int numOfGamesToPlay;
+            if (int.TryParse(Console.ReadLine(), out numOfGamesToPlay))
             {
-                if (InputValidation.isValidGameNumber(input))
+                if (InputValidation.isValidGameNumber(numOfGamesToPlay))
                 {
-                    return input;
+                    return numOfGamesToPlay;
                 }
             }
             return 0;
@@ -67,8 +67,8 @@ namespace Nim
 
         public void DisplayPlayerTurn(bool turn)
         {
-            string turnDisplay = (turn) ? "Player 2 turn\n" : "Player 1 turn\n";
-            Console.WriteLine(turnDisplay);
+            string currentTurnOutput = (turn) ? "Player 2 turn\n" : "Player 1 turn\n";
+            Console.WriteLine(currentTurnOutput);
         }
 
         public void DisplayGameOver(bool turn)
