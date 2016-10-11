@@ -13,56 +13,28 @@ namespace Nim
         {
             Console.WriteLine("1: PvP\n2: PvC\n3: CVC\n4: Exit\n");
             int menuSelectionInput;
-            if (int.TryParse(Console.ReadLine(), out menuSelectionInput))
-            {
-                if (InputValidation.isValidInputRange(menuSelectionInput))
-                {
-                    return menuSelectionInput;
-                }
-            }
-            return -1;
+            return int.TryParse(Console.ReadLine(), out menuSelectionInput) && InputValidation.isValidInputRange(menuSelectionInput) ? menuSelectionInput : -1;
         }
         public int PromptRow(State state)
         {
             Console.WriteLine("Which row are you modifying? (1, 2, 3)\n");
             int rowSelectionInput;
-            if (int.TryParse(Console.ReadLine(), out rowSelectionInput))
-            {
-                row = rowSelectionInput;
-                if (InputValidation.isValidRow(rowSelectionInput, state))
-                {
-                    return rowSelectionInput;
-                }
-            }
-            return 0;
+            row = int.TryParse(Console.ReadLine(), out rowSelectionInput) && InputValidation.isValidRow(rowSelectionInput, state) ? rowSelectionInput : 0;
+            return row;
         }
 
         public int PromptRemoval(State state)
         {
             Console.WriteLine("How many pieces are you removing?\n");
             int rowRemovalInput;
-            if (int.TryParse(Console.ReadLine(), out rowRemovalInput))
-            {
-                if (InputValidation.isValidRemoval(row, rowRemovalInput, state))
-                {
-                    return rowRemovalInput;
-                }
-            }
-            return 0;
+            return int.TryParse(Console.ReadLine(), out rowRemovalInputput) && InputValidation.isValidRemoval(row, rowRemovalInput, state) ? rowRemovalInput : 0;
         }
 
         public static int PromptGameNumberAI()
         {
             Console.WriteLine("How many games would you like to be played?\n");
             int numOfGamesToPlay;
-            if (int.TryParse(Console.ReadLine(), out numOfGamesToPlay))
-            {
-                if (InputValidation.isValidGameNumber(numOfGamesToPlay))
-                {
-                    return numOfGamesToPlay;
-                }
-            }
-            return 0;
+            return int.TryParse(Console.ReadLine(), out numOfGamesToPlay) && InputValidation.isValidGameNumber(numOfGamesToPlay) ? numOfGamesToPlay : 0;
         }
 
         public void DisplayPlayerTurn(bool turn)

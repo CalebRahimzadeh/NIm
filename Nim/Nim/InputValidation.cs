@@ -11,8 +11,7 @@ namespace Nim
 
         public static bool isValidInputRange(int input)
         {
-            bool isValid = false;
-            return (input > 0 && input < 5) ? !isValid : isValid;
+            return (input > 0 && input < 5);
         }
 
         public static bool isValidRow(int input, State state)
@@ -27,8 +26,7 @@ namespace Nim
 
         public static bool isValidGameNumber(int input)
         {
-            bool isValid = false;
-            return input > 0 ? isValid = true : isValid;
+            return input > 0;
         }
     }
 }

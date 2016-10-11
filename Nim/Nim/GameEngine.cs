@@ -157,8 +157,7 @@ namespace Nim
         public bool StartingTurn()
         {
             Random rand = new Random();
-            bool boolReturn = false;
-            return rand.Next(2) == 0 ? boolReturn : !boolReturn;
+            return rand.Next(2) == 0;
         }
 
         public bool SwitchTurn()
