@@ -105,7 +105,7 @@ namespace Nim
         private void CalculateSumScores()
         {
             gameHistory.Add(_endState);
-            bool flipper = false;
+            bool stateIsPositive = false;
             int negCounter = 0;
             int negDenominator = gameHistory.Count / 2;
             int posDenominator = ((gameHistory.Count - negDenominator) - 1);
@@ -115,7 +115,7 @@ namespace Nim
             {
                 foreach (var item in AI.StateTree[gameHistory[j]])
                 {
-                    if (flipper)
+                    if (stateIsPositive)
                     {
                         item.Key.SumScore = new Tuple<int, int>(--negCounter, negDenominator);
                     }
